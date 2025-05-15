@@ -1,0 +1,464 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Плавная прокрутка для всей страницы - отключаем на мобильных устройствах для лучшей производительности */
+@media (min-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* На мобильных устройствах используем обычную прокрутку для повышения производительности */
+@media (max-width: 767px) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+:root {
+  --background: 210 50% 98%;
+  --foreground: 224 71% 4%;
+  --muted: 220 20% 94%;
+  --muted-foreground: 220 8% 46%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 71% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 71% 4%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --primary: 248 90% 66%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 186 100% 42%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 248 90% 97%;
+  --accent-foreground: 248 90% 66%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 248 90% 66%;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 215 20% 65%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 213 31% 91%;
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+  --primary: 248 90% 66%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 186 100% 42%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 248 90% 66%;
+}
+
+@layer base {
+  * {
+    @apply border-[hsl(var(--border))];
+  }
+
+  body {
+    @apply text-foreground font-sans antialiased;
+    background-color: #fdfdfd;
+    min-height: 100vh;
+  }
+
+  /* Упрощенный фон для мобильных устройств */
+  @media (min-width: 768px) {
+    body {
+      background-image:
+        radial-gradient(circle at 80% 10%, rgba(147, 197, 253, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 20% 70%, rgba(186, 230, 253, 0.35) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 70%),
+        linear-gradient(to bottom, transparent 80%, rgba(250, 204, 21, 0.25) 100%);
+      background-attachment: fixed;
+    }
+  }
+
+  /* Оптимизация для мобильных: отключаем сложные градиенты и фиксированный фон */
+  @media (max-width: 767px) {
+    body {
+      background-color: #fdfdfd;
+      background-image: linear-gradient(to bottom, rgba(147, 197, 253, 0.2) 0%, transparent 100%);
+      background-attachment: scroll;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Применяем оптимизацию content-visibility только на десктопах */
+  @media (min-width: 768px) {
+    body {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 5000px;
+    }
+
+    /* Стили для содержимого, которое изначально находится вне области просмотра */
+    .content-wrapper > *:not(section) {
+      content-visibility: auto;
+    }
+
+    /* Применяем GPU-ускоренные анимации */
+    .gpu-accelerated {
+      transform: translateZ(0);
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+    }
+  }
+
+  /* Все секции и компоненты видимы сразу */
+  section, .content-wrapper > * {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+    visibility: visible !important;
+  }
+
+  /* Отключаем все initial/hidden состояния для motion компонентов */
+  [data-motion],
+  .framer-motion-div,
+  [style*="opacity: 0"],
+  [style*="transform: translate"],
+  [initial="hidden"] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  /* Принудительно показываем все элементы */
+  * {
+    animation-delay: 0ms !important;
+  }
+}
+
+@layer components {
+  /* Упрощенные градиенты для всех устройств */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/90 to-secondary;
+  }
+
+  /* Стили для десктопов: полные анимации */
+  @media (min-width: 768px) {
+    .animated-gradient-text {
+      @apply bg-clip-text text-transparent;
+      background-size: 200% 200%;
+      background-image: linear-gradient(45deg,
+        #38bdf8, /* голубой */
+        #2563eb, /* синий */
+        #8b5cf6, /* фиолетовый */
+        #d946ef, /* розовый */
+        #b87d14, /* очень тёмный золотисто-жёлтый */
+        #6366f1, /* индиго вместо зеленого */
+        #06b6d4, /* тёмно-голубой */
+        #f472b6, /* сиреневый */
+        #2563eb  /* синий */
+      );
+      animation: gradient-animation 20s ease infinite;
+    }
+
+    .animate-text-gradient {
+      background-size: 300%;
+      background-image: linear-gradient(
+        -45deg,
+        #6366f1,
+        #8b5cf6,
+        #d946ef,
+        #ec4899,
+        #f97316,
+        #eab308,
+        #3b82f6,
+        #8b5cf6,
+        #6366f1
+      );
+      animation: animated-gradient 12s ease-in-out infinite;
+    }
+
+    /* Анимации для верхнего заголовка */
+    .animate-yellow-gradient {
+      animation: yellow-gradient 3s ease-in-out infinite;
+      background-size: 200%;
+    }
+
+    .animate-green-gradient {
+      animation: green-gradient 3s ease-in-out infinite alternate;
+      background-size: 200%;
+    }
+  }
+
+  /* Стили для мобильных: упрощенные градиенты без анимаций */
+  @media (max-width: 767px) {
+    .animated-gradient-text {
+      @apply bg-clip-text text-transparent;
+      background-image: linear-gradient(45deg, #2563eb, #8b5cf6);
+    }
+
+    .animate-text-gradient {
+      @apply bg-clip-text text-transparent;
+      background-image: linear-gradient(-45deg, #6366f1, #8b5cf6);
+    }
+
+    .animate-yellow-gradient,
+    .animate-green-gradient {
+      /* Без анимации на мобильных */
+      background-size: 100% 100%;
+      animation: none !important;
+    }
+  }
+
+  /* Специальная анимация для слова "Быстрый" с оттенками желтого */
+  .bg-gradient-to-r.from-yellow-400.to-amber-500 {
+    background-size: 200%;
+    background-image: linear-gradient(
+      90deg,
+      #f59e0b,
+      #fbbf24,
+      #f59e0b
+    );
+  }
+
+  /* Специальная анимация для слова "старт" теперь без зеленых оттенков */
+  .bg-gradient-to-r.from-green-400.to-teal-500 {
+    background-size: 200%;
+    background-image: linear-gradient(
+      90deg,
+      #3b82f6,
+      #60a5fa,
+      #3b82f6
+    );
+  }
+
+  /* Анимации только для десктопов */
+  @media (min-width: 768px) {
+    @keyframes yellow-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes green-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes animated-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes gradient-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  }
+
+  /* Упрощенные тени вместо сложных с множеством слоев */
+  .shadow-text {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .light-shadow {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Упрощенный primary-gradient для мобильных */
+  @media (max-width: 767px) {
+    .primary-gradient {
+      @apply bg-gradient-to-r from-primary to-secondary shadow-md transition-colors duration-200;
+    }
+  }
+
+  /* Полный primary-gradient для десктопов */
+  @media (min-width: 768px) {
+    .primary-gradient {
+      @apply bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] transition-all duration-300;
+    }
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 md:px-8 max-w-7xl;
+  }
+
+  /* Упрощенные карточки для мобильных - без блюра и сложных эффектов */
+  @media (max-width: 767px) {
+    .glass-card {
+      @apply bg-white rounded-xl border shadow-md p-6 transition-shadow duration-200;
+    }
+
+    .glass-card:hover {
+      @apply shadow-lg;
+    }
+
+    .benefit-card {
+      @apply bg-white rounded-xl shadow-sm p-6 border border-border/50 transition-shadow duration-200;
+    }
+
+    .tech-card {
+      @apply bg-white rounded-2xl shadow-md p-6 border border-white/20 transition-shadow duration-200;
+    }
+  }
+
+  /* Полные стили для десктопов */
+  @media (min-width: 768px) {
+    .glass-card {
+      @apply bg-white/80 backdrop-blur-md rounded-xl border border-white/10 shadow-xl p-6 hover:shadow-2xl transition-all duration-300;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .benefit-card {
+      @apply bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 hover:shadow-xl transition-all duration-300 cursor-pointer border border-border/50 hover:border-primary/20;
+    }
+
+    .tech-card {
+      @apply bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-white/20 hover:border-primary/20;
+    }
+  }
+
+  /* Обновлённый стиль для шапки: полностью белый, без блюра, фильтров и прозрачности */
+  .blur-header {
+    position: relative;
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    z-index: 50;
+  }
+
+  .blur-header::before,
+  .blur-header::after {
+    display: none !important;
+  }
+
+  .feature-icon {
+    @apply w-12 h-12 rounded-full flex items-center justify-center mb-4;
+  }
+
+  /* Эффект свечения только для десктопов */
+  @media (min-width: 768px) {
+    .glow-effect {
+      @apply relative;
+    }
+
+    .glow-effect::after {
+      @apply content-[''] absolute -z-10 top-0 left-0 w-full h-full rounded-xl opacity-0 transition-opacity duration-300 blur-xl bg-gradient-to-r from-primary/30 to-secondary/30;
+    }
+
+    .glow-effect:hover::after {
+      @apply opacity-100;
+    }
+  }
+
+  /* Плавное появление для всех изображений с GPU-ускорением */
+  img {
+    transition: opacity 0.3s ease;
+    object-fit: cover;
+    transform: translateZ(0); /* GPU-ускорение */
+  }
+
+  /* Дополнительная анимация для элементов с блюром - только для десктопов */
+  @media (min-width: 768px) {
+    .blur-element {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blur-element::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .blur-element:hover::after {
+      opacity: 0.4;
+    }
+  }
+
+  /* Простая версия для мобильных - без эффектов блюра */
+  @media (max-width: 767px) {
+    .blur-element::after {
+      display: none;
+    }
+  }
+
+  /* Оптимизированная загрузка изображений */
+  img.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  img.lazy-loaded {
+    opacity: 1;
+  }
+}
+
+/* Анимации для эффектов наведения только на настольных устройствах */
+@media (min-width: 768px) {
+  .benefit-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .floating-element {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .rotate-element {
+    animation: rotate 12s linear infinite;
+  }
+
+  .pulse-element {
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(0.95);
+    }
+  }
+}
+
+/* Отключаем сложные анимации на мобильных устройствах */
+@media (max-width: 767px) {
+  .floating-element,
+  .rotate-element,
+  .pulse-element {
+    animation: none !important;
+  }
+}

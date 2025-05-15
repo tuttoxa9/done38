@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Работа курьером в ЮНИК — ЮНИКТЕЙСТ | UnicTaste</title>
+    <meta name="description" content="Работа курьером в службе доставки ЮНИК (UnicTaste) в Минске и по всей Беларуси. Гибкий график, быстрые выплаты, дружный коллектив! Подключение без опыта. Стань частью команды ЮНИК!" />
+    <meta name="keywords" content="работа курьер, работа в доставке, юник курьер, unic курьер, unictaste, юниктейст, юниктэйст, работа courier, доставка вакансии, доставка юник, unictaste работа, работа курьер Минск, курьер на авто, подработка курьер, гибкий график, мобильное приложение курьер, гибкий заработок, курьер без опыта" />
+    <link rel="canonical" href="https://unictaste.by/" />
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon and manifest -->
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph / Facebook / VK -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://unictaste.by/" />
+    <meta property="og:title" content="Работа курьером в ЮНИК — ЮНИКТЕЙСТ | UnicTaste" />
+    <meta property="og:description" content="Работа курьером в службе доставки ЮНИК (UnicTaste) в Минске и по всей Беларуси. Гибкий график, быстрые выплаты, дружный коллектив! Подключение без опыта. Стань частью команды ЮНИК!" />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://unictaste.by/" />
+    <meta property="twitter:title" content="Работа курьером в ЮНИК — ЮНИКТЕЙСТ | UnicTaste" />
+    <meta property="twitter:description" content="Работа курьером в службе доставки ЮНИК (UnicTaste) в Минске и по всей Беларуси. Гибкий график, быстрые выплаты, дружный коллектив! Подключение без опыта. Стань частью команды ЮНИК!" />
+    <meta property="twitter:image" content="/og-image.png" />
+
+    <meta name="theme-color" content="#7c3aed" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ЮНИК" />
+
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" as="image" href="/man3.webp" fetchpriority="high" type="image/webp" />
+    <link rel="preload" as="image" href="/man3.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/up.png" />
+    <link rel="preload" as="image" href="/assets/man1.jpg" />
+    <link rel="preload" as="image" href="/assets/auto.jpg" />
+    <link rel="preload" as="image" href="/assets/bike1.jpg" />
+
+    <!-- Предзагрузка шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <!-- Улучшенные критические стили с поддержкой мобильных устройств -->
+    <style>
+      /* Базовые стили для всех устройств */
+      body {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
+        background-color: #fdfdfd;
+        min-height: 100vh;
+      }
+
+      .preload * {
+        -webkit-transition: none !important;
+        -moz-transition: none !important;
+        -ms-transition: none !important;
+        -o-transition: none !important;
+        transition: none !important;
+      }
+
+      /* Улучшенный блюр в шапке - только для десктопов */
+      @media (min-width: 768px) {
+        .blur-effect {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .blur-effect::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(15px);
+          -webkit-backdrop-filter: blur(15px);
+          z-index: -1;
+        }
+      }
+
+      /* Простая версия для мобильных - без эффектов блюра */
+      @media (max-width: 767px) {
+        .blur-effect {
+          background: #ffffff;
+          position: relative;
+        }
+      }
+    </style>
+
+    <!-- Оптимизированный скрипт для быстрой загрузки -->
+    <script>
+      // Определение мобильного устройства и сохранение в localStorage
+      try {
+        const isMobile = window.innerWidth < 768 ||
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        localStorage.setItem('isMobile', String(isMobile));
+
+        // Добавляем CSS-класс на body для стилизации на основе типа устройства
+        document.documentElement.classList.add(isMobile ? 'is-mobile' : 'is-desktop');
+      } catch (e) {
+        // Игнорируем ошибки
+      }
+
+      // Добавляем класс preload для предотвращения анимаций при загрузке
+      document.documentElement.classList.add('preload');
+
+      // Удаляем класс preload после загрузки страницы
+      window.addEventListener('load', function() {
+        requestAnimationFrame(() => {
+          document.documentElement.classList.remove('preload');
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Основной модуль приложения -->
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  </body>
+</html>
